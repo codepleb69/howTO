@@ -1,0 +1,46 @@
+<% include ../partials/header %>
+
+<div class="row">
+	<div class="col-md-4">
+		<h1><%= user.firstName + ' ' + user.lastName %> </h1>
+		<div class="thumbnail">
+			<img src="<%=user.avatar %>" alt="user profile image">
+			<div class="caption">
+				<a href="mailto:<%=user.email%>"><%=user.email%></a>
+			</div>	
+		</div>
+		<div>
+		<%	if(user.description){ %>
+				<%= user.description %>
+		<%	} else {	%>
+				<p>This user hasn't set up a description yet!</p>
+		  <%} %>
+	    </div>
+	</div>	
+	<div class="col-md-8">
+		<h2> <%= user.username %>'s courses taught: </h2>
+		<ul>
+	 	<% courses.forEach(function(course) { %>
+			<li><a href="/courses/<%= course.id %>">
+				<h5><%= course.name %></h5>
+			</a></li>
+	 	<%	}); %>
+	 	</ul>
+
+	 	<h2> <%= user.username %>'s courses owned: </h2>
+		<ul>
+	 	<% user.coursesTaken.forEach(function(ownedCourse) { %>
+			<li><a href="/courses/<%= ownedCourse.course %>">
+				Course
+			</a></li>
+	 	<%	}); %>
+	 	</ul>
+	 	<% for(var i = 0; i < user.coursesTaken.length; i++) { %>
+                <div class="col-xs-2">
+                  <%= user.coursesTaken[i].name %>
+                </div>
+              <% } %>
+	</div>
+</div>
+
+<% include ../partials/footer %>
